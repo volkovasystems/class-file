@@ -17,7 +17,24 @@
 	@end-export
 */
 File = function File( path ){
-
+	/*:
+		@meta-configuration:
+			{
+				"path:required": "Path|string"
+			}
+		@end-meta-configuration
+	*/
+	if( parameter.path.isString( ) ){
+		path = Path( path );
+	}
+	if( path.verify )
+	if( this instanceof Path ){
+		this.path = path;
+		this.encoding = "utf8";
+		this.decoding = "utf8";
+	}else{
+		return new File( path );
+	}
 };
 
 File.prototype.read = function read( ){
