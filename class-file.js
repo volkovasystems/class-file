@@ -1,66 +1,96 @@
 /*:
-	@include:
+	@module-configuration:
 		{
-			"fs": "fs",
-			"check-if-empty": "checkIfEmpty",
-			"class-path": "Path",
-			"class-file": "File",
-			"subset": "subset",
-			"class-range": "Range"
+			"packageName": "class-file",
+			"fileName": "class-file.js",
+			"moduleName": "File",
+			"className": "File",
+			"authorName": "Richeve S. Bebedor",
+			"authorEMail": "richeve.bebedor@gmail.com",
+			"repository": "git@github.com:volkovasystems/class-file.git",
+			"testCase": "class-file-test.js",
+			"isGlobal": true
+		}
+	@end-module-configuration
+
+	@module-documentation:
+
+	@end-module-documentation
+
+	@include:
+		{			
+			"fs": "fs"
 		}
 	@end-include
 
-	@export:
-		{
-			"parseCommands": "parseCommands"
-		}
-	@end-export
+	@constructor-configuration:
+        {
+            "testCase": "class-file-constructor-test.js"
+        }
+	@end-construct-configuration
+
+	@constructor-documentation:
+		
+	@end-constructor-documentation
 */
-File = function File( path ){
+var File = function File( fileRawPath ){
 	/*:
 		@meta-configuration:
 			{
-				"path:required": "Path|string"
+				"fileRawPath:required": "string"
 			}
 		@end-meta-configuration
 	*/
-	if( parameter.path.isString( ) ){
-		path = Path( path );
-	}
-	if( path.verify )
-	if( this instanceof Path ){
-		this.path = path;
-		this.encoding = "utf8";
-		this.decoding = "utf8";
+
+	this.filePath.appendToRawPath( fileRawPath );
+};
+
+File.prototype.filePath = new Path( "." );
+
+File.prototype.readFile = function readFile( ){
+	if( this.filePath.checkIfFile( ) ){
+		return fs.readFileSync( this.filePath.toString( ), { "encoding": "utf8" } )
 	}else{
-		return new File( path );
+		var error = new Error( "invalid file" );
+		console.error( error );
+		throw error;
 	}
 };
 
-File.prototype.read = function read( ){
+File.prototype.createFile = function createFile( ){
 
 };
 
-File.prototype.write = function write( data ){
+File.prototype.deleteFile = function deleteFile( ){
 
 };
 
-File.prototype.decodeAs = function decodeAs( decoding ){
+File.prototype.renameFile = function renameFile( fileName ){
 
 };
 
-File.prototype.encodeAs = function encodeAs( encoding ){
+File.prototype.moveFileToPath = function moveFileToPath( location ){
 
 };
 
-File.prototype.watch = function watch( handler ){
+File.prototype.moveFileToRawPath = function moveFileToRawPath( location ){
 
 };
 
-File.prototype.destroy = function destroy( ){
+File.prototype.writeContentToFile = function writeContentToFile( content ){
 
 };
 
-File.prototype.getLocation = function getLocation( ){
+File.prototype.copyFileToPath = function copyFileToPath( location ){
 
 };
+
+File.prototype.copyFileToRawPath = function copyFileToRawPath( location ){
+
+};
+
+var Path = require( "./class-path/class-path.js" );
+
+var fs = require( "fs" );
+
+( module || { } ).exports = File;
