@@ -1,0 +1,3 @@
+[submodule "class-path"]
+	path = class-path
+	url = git@github.com:volkovasystems/class-path.git
